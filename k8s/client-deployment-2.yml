@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: web2
+  template:
+    metadata:
+      labels:
+        component: web2
+    spec:
+      containers:
+        - name: client
+          image: tilenn/frontend:v2
+          ports:
+            - containerPort: 3000

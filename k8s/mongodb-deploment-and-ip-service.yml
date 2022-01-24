@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baza-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: baza-mongo
+  template:
+    metadata:
+      labels:
+        app: baza-mongo
+    spec:
+      containers:
+        - name: baza-mongo
+          image: mongo
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: baza-mongo-srv
+spec:
+  selector:
+    app: baza-mongo
+  ports:
+    - name: baza-mongo
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
