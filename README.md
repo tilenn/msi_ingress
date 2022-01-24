@@ -1,6 +1,6 @@
 # msi_ingress
 
-Simple book review app using Kubernetes and Ingress. 
+Simple book review app using Kubernetes and Ingress. It uses React for the frontend, Express for backend and Mongo for database. There is another Express server build with multi-stage builds to satifsy the task for grading.
 
 ## Instructions
 #### Clone the repository
