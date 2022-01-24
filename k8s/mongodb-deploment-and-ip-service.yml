@@ -1,20 +1,13 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: baza-mongo-depl
+  name: mongo-pvc
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: baza-mongo
-  template:
-    metadata:
-      labels:
-        app: baza-mongo
-    spec:
-      containers:
-        - name: baza-mongo
-          image: mongo
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
 
 ---
 apiVersion: v1
@@ -23,9 +16,33 @@ metadata:
   name: baza-mongo-srv
 spec:
   selector:
-    app: baza-mongo
+    app: mongo
   ports:
-    - name: baza-mongo
-      protocol: TCP
-      port: 27017
+    - port: 27017
       targetPort: 27017
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: mongo
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: storage
+              mountPath: /data/db
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc
