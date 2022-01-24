@@ -4,6 +4,7 @@ Simple book review app using Kubernetes and Ingress. It uses React for the front
 
 ## Instructions
 #### Clone the repository
+#### There is a demo in the zip file
 #### Open the terminal and cd into the cloned repository 
 Run ```minikube start```
 Run ```minikube addons enable ingress```
