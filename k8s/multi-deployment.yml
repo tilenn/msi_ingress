@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: multi
+  template:
+    metadata:
+      labels:
+        component: multi
+    spec:
+      containers:
+        - name: client
+          image: tilenn/nodejs-server:v1
+          ports:
+            - containerPort: 8000

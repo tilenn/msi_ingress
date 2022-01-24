@@ -24,3 +24,10 @@ spec:
                 name: server-cluster-ip-service
                 port:
                   number: 3001
+          - path: /multistage/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: multi-ip-service
+                port:
+                  number: 8000
